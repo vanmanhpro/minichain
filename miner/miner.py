@@ -110,7 +110,7 @@ class Miner():
         # take data from mempool
         candidateBlockContent = self.get_candidate_block_data(latestBlock)
         if len(candidateBlockContent) == 0:
-            print("No block today sir :)")
+            print("No transaction left in mempool :)")
             return
 
         # append coinbase transaction
