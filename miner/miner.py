@@ -265,4 +265,4 @@ def checkmining():
 
 if __name__ == '__main__':
     miningProcess = multiprocessing.Process()
-    miner_node.run(port=9090, debug=True)
+    miner_node.run(host='0.0.0.0', port=9090, debug=True)

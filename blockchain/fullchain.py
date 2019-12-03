@@ -375,4 +375,4 @@ def verifytransaction():
         return json.dumps(verifyTransactionPayload)
 
 if __name__ == '__main__':
-    fullchain_node.run(port=8080, debug=True)
+    fullchain_node.run(host='0.0.0.0', port=8080, debug=True)
