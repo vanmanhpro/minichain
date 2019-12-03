@@ -1,0 +1,8 @@
+{
+    "index": 0,
+    "prevHash": "xxx",
+    "content": "[{\"id\": \"hash of transaction\", \"sender\": \"public key of sender\", \"receiver\": \"public key of receiver\", \"amount\": 10, \"signature\": \"asdf\"}]",
+    "timestamp": "2019-11-27 04:19:13.369369",
+    "hash": "0000f5a0a4ff91576e0be7f715bf7a4f5a3018bce7e1b229e7c43b76b40d724e",
+    "nonce": "4p3"
+}  

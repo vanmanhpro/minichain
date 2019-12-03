@@ -1,0 +1,8 @@
+{
+    "id": "hash of transaction",
+    "type": "tx",
+    "sender": "public key of sender",
+    "receiver": "public key of receiver",
+    "amount": 10,
+    "signature": "asdf"
+}

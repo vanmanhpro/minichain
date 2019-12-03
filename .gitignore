@@ -1,0 +1,4 @@
+__pycache__
+blockchain/fullchain.json
+miner/mempool_database.json
+wallet/*.json

@@ -1,0 +1,6 @@
+{
+    "id": "transaction id",
+    "type": "coinbase",
+    "receiver": "public key of receiver",
+    "amount": 10
+}
