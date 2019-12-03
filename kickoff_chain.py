@@ -4,10 +4,12 @@ import json
 import multiprocessing 
 import time
 import requests
+import os
 from flask import Flask, request
 from miner.miner import CandidateBlock
 from wallet.wallet import Wallet
 
+CHAIN_ENDPOINT = os.environ['CHAIN_ENDPOINT']
 
 if __name__ == '__main__':
     # wallet_manh = Wallet('wallet/manh.json', True, 'vanmanhpro')
@@ -21,7 +23,7 @@ if __name__ == '__main__':
     print(json.dumps(candidateBlock.returnBlockData(), indent=2))
     candidateBlockData = candidateBlock.returnBlockData()
 
-    response = requests.post('http://127.0.0.1:8080/candidateblock', json.dumps(candidateBlockData), 
+    response = requests.post('{}/candidateblock'.format(CHAIN_ENDPOINT), json.dumps(candidateBlockData), 
                 headers={'Content-Type': 'application/json'})
 
     print(response.text)

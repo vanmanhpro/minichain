@@ -8,7 +8,10 @@ import os
 from flask import Flask, request
 
 MEMPOOL_DATABASE = os.path.dirname(os.path.realpath(__file__)) + "/mempool_database.json"
-MINER_WALLET_ADDRESS = "21e8bca257607c7cff2ea0d41af2653ca0e8533732d8b6f980c1e2eca4bcf40dfe0da775969f9335ee64eedf72ae0ea2"
+
+MINER_WALLET_ADDRESS = os.environ['MINER_WALLET_ADDRESS']
+
+CHAIN_ENDPOINT = os.environ['CHAIN_ENDPOINT']
 
 
 def charToNum(char):
@@ -48,7 +51,7 @@ class CandidateBlock():
         self.hash = ''
 
     def mine(self):
-        currentDifficulty = json.loads(requests.get('http://127.0.0.1:8080/difficulty').text)['currentDifficulty']
+        currentDifficulty = json.loads(requests.get('{}/difficulty'.format(CHAIN_ENDPOINT)).text)['currentDifficulty']
         iNonce = '0'
         iHash = None
         while True:
@@ -88,7 +91,7 @@ class Miner():
     
     def verify_transaction(self, transaction):
         # transaction verification
-        verifyTransaction = requests.post('http://127.0.0.1:8080/verifytransaction', json.dumps(transaction), 
+        verifyTransaction = requests.post('{}/verifytransaction'.format(CHAIN_ENDPOINT), json.dumps(transaction), 
             headers={'Content-Type': 'application/json'})
         return json.loads(verifyTransaction.text)['transactionValid']
 
@@ -141,13 +144,13 @@ class Miner():
         return candidateBlockContent
 
     def get_latest_block(self):
-        response = requests.get('http://127.0.0.1:8080/latestblock')
+        response = requests.get('{}/latestblock'.format(CHAIN_ENDPOINT))
         if response.text == 'None':
             return None
         return json.loads(response.text)
 
     def get_current_bounty(self):
-        response = requests.get('http://127.0.0.1:8080/bounty')
+        response = requests.get('{}/bounty'.format(CHAIN_ENDPOINT))
         return json.loads(response.text)['currentBounty']
 
     def craft_coinbase_transaction(self):
@@ -194,7 +197,7 @@ class Miner():
         print(json.dumps(minedBlock, indent=2))
         print("Done")
         # submit mined block to server
-        response = requests.post('http://127.0.0.1:8080/candidateblock', json.dumps(minedBlock), 
+        response = requests.post('{}/candidateblock'.format(CHAIN_ENDPOINT), json.dumps(minedBlock), 
             headers={'Content-Type': 'application/json'})
         print(response.text)
         

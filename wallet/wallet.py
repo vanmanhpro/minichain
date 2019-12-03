@@ -5,7 +5,10 @@ import requests
 import os
 from ecdsa import SigningKey, VerifyingKey
 
-PRIVATE_KEY_LOCATION = os.path.dirname(os.path.realpath(__file__)) + '/bumblebee.json'
+PRIVATE_KEY_LOCATION = os.path.dirname(os.path.realpath(__file__)) + '/miner.json'
+
+CHAIN_ENDPOINT = os.environ['CHAIN_ENDPOINT']
+MINER_ENDPOINT = os.environ['MINER_ENDPOINT']
 
 class Wallet():
     def __init__(self, walletFileLocation, initWallet=False, walletName='default'):
@@ -33,7 +36,7 @@ class Wallet():
             }, indent=2))
         
     def get_wallet_data(self):
-        response = requests.get('http://127.0.0.1:8080/wallet/{}'.format(self.pubKey.to_string().hex()))
+        response = requests.get('{}/wallet/{}'.format(CHAIN_ENDPOINT, self.pubKey.to_string().hex()))
         return json.loads(response.text)
 
     def register_wallet_payload(self):
@@ -57,7 +60,7 @@ class Wallet():
         walletRegPayload['id'] = hashlib.sha256((walletRegPayload['type']
             + walletRegPayload['pubKey'] + walletRegPayload['walletName']).encode()).hexdigest()
         print(json.dumps(walletRegPayload, indent=2))
-        response = requests.post('http://127.0.0.1:9090/transaction', json.dumps(walletRegPayload), 
+        response = requests.post('{}/transaction'.format(MINER_ENDPOINT), json.dumps(walletRegPayload), 
             headers={'Content-Type': 'application/json'})
         print(response.text)
 
@@ -80,19 +83,17 @@ class Wallet():
                                         + str(txPayload['amount'])
                                         + txPayload['signature']).encode()).hexdigest()
         print(json.dumps(txPayload, indent=2))
-        # verifyTransaction = requests.post('http://127.0.0.1:8080/verifytransaction', json.dumps(txPayload), 
+        # verifyTransaction = requests.post('{}/verifytransaction'.format(CHAIN_ENDPOINT), , json.dumps(txPayload), 
         #     headers={'Content-Type': 'application/json'})
         # print(verifyTransaction.text)
-        response = requests.post('http://127.0.0.1:9090/transaction', json.dumps(txPayload), 
+        response = requests.post('{}/transaction'.format(MINER_ENDPOINT), json.dumps(txPayload), 
             headers={'Content-Type': 'application/json'})
         print(response.text)
 
 if __name__ == '__main__':
-    wallet = Wallet(PRIVATE_KEY_LOCATION, True, 'bumblebee')
-    wallet.register_wallet()
+    wallet = Wallet(PRIVATE_KEY_LOCATION)
+    # wallet.register_wallet()
     # wallet.send_coin('839c4e6d6a76ec4a2af86beec09516ef285583c25c7500b69fd38a58daf773d3584c50bab3868f2ed78593753d8588f0',10)
     # print(json.dumps(wallet.get_wallet_data(), indent=2))
-    # key = VerifyingKey.from_string(bytearray.fromhex("fff2eb4f1012a85c21d6a9066f1626e8d386963355779fb625ebd4dac9428e4f89d0634ddf819cc7953b63863a1af948"))
-    # print(key.to_pem().decode())
 
     

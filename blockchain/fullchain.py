@@ -8,6 +8,8 @@ from flask import Flask, request
 
 DATABASE_FILE = os.path.dirname(os.path.realpath(__file__)) + '/fullchain.json'
 
+MINER_ENDPOINT = os.environ['MINER_ENDPOINT']
+
 class Block():
     def __init__(self, blockData):
         self.blockData = blockData
@@ -259,7 +261,19 @@ class Blockchain():
         return "Block added"
 
     def return_chain(self):
-        return self.chain
+        with open(DATABASE_FILE, "r") as databaseFile:
+            data = json.loads(databaseFile.read())
+        return data['chain']
+
+    def return_ledger(self):
+        with open(DATABASE_FILE, "r") as databaseFile:
+            data = json.loads(databaseFile.read())
+        return data['ledger']
+
+    def return_all_addresses(self):
+        with open(DATABASE_FILE, "r") as databaseFile:
+            data = json.loads(databaseFile.read())
+        return data['addresses']
 
     def return_latest_block(self):
         if len(self.chain) == 0:
@@ -290,6 +304,21 @@ fullchain_node = Flask(__name__)
 
 blockchain = Blockchain()
 blockchain.load_database()
+
+@fullchain_node.route('/chain', methods = ['GET'])
+def chain():
+    if request.method == 'GET':
+        return json.dumps(blockchain.return_chain())
+
+@fullchain_node.route('/ledger', methods = ['GET'])
+def ledger():
+    if request.method == 'GET':
+        return json.dumps(blockchain.return_ledger())
+
+@fullchain_node.route('/wallets', methods = ['GET'])
+def wallets():
+    if request.method == 'GET':
+        return json.dumps(blockchain.return_all_addresses())
 
 @fullchain_node.route('/wallet/<wallet_address>', methods = ['GET'])
 def wallet(wallet_address):
