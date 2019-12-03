@@ -1,6 +1,6 @@
 {
-    "id": "transaction id",
     "type": "coinbase",
-    "receiver": "public key of receiver",
-    "amount": 10
+    "receiver": "21e8bca257607c7cff2ea0d41af2653ca0e8533732d8b6f980c1e2eca4bcf40dfe0da775969f9335ee64eedf72ae0ea2",
+    "amount": 2048,
+    "id": "80b273ab68eed9da3eeb5fa3afd9610f7688be4d2a4cdbf3976aff5b30834f73"
 }

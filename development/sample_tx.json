@@ -1,8 +1,8 @@
 {
-    "id": "hash of transaction",
     "type": "tx",
-    "sender": "public key of sender",
-    "receiver": "public key of receiver",
+    "sender": "21e8bca257607c7cff2ea0d41af2653ca0e8533732d8b6f980c1e2eca4bcf40dfe0da775969f9335ee64eedf72ae0ea2",
+    "receiver": "6dcfdd456104d3288f8796bc530fb63c8b3965d3eed0e8d363f79e426ad22076b7f10589f9b6ed0e1b6cc014b6c8de5d",
     "amount": 10,
-    "signature": "asdf"
+    "signature": "fc975a1ae4601408707a466d089a55f76a75ef3b20613fae54512fdec23a6e1d4b0b408845d968d0c680ed09e549c4f2",
+    "id": "7045db42af01cee6be85e796df892df725026103647625f15ebdb695ceca3624"
 }
