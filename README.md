@@ -25,6 +25,7 @@ wallet = Wallet('<wallet_file_name>', True, '<wallet_name>')
 ### Mine Genesis Block
 
 ```bash
+python3 kickoff_chain.py
 ```
 
 ### Init Miner Service
