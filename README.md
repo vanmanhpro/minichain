@@ -25,6 +25,7 @@ wallet = Wallet('<wallet_file_name>', True, '<wallet_name>')
 ### Mine Genesis Block
 
 ```bash
+export CHAIN_ENDPOINT=http://ec2-54-254-131-32.ap-southeast-1.compute.amazonaws.com:8080
 python3 kickoff_chain.py
 ```
 
@@ -44,9 +45,9 @@ python3 miner/miner.py
 
 ```bash
 # published endpoint of chain service
-export CHAIN_ENDPOINT=http://ec2-54-169-169-0.ap-southeast-1.compute.amazonaws.com:8080
+export CHAIN_ENDPOINT=http://ec2-54-254-131-32.ap-southeast-1.compute.amazonaws.com:8080
 # published endpoint of miner service
-export MINER_ENDPOINT=http://ec2-54-169-169-0.ap-southeast-1.compute.amazonaws.com:9090
+export MINER_ENDPOINT=http://ec2-54-254-131-32.ap-southeast-1.compute.amazonaws.com:9090
 ```
 
 ### Create and Register a wallet
